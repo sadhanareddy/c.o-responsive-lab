@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Virtual Memory</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
+<script src="index.js"></script>
+</head>
+<body>
+	<div class="well">VIRTUAL MEMORY SIMULATION</div>
+	<div class="row">  <!-- first row -->
+		<div class="col-sm-2" style="background-color:;"><!-- first column -->
+			<div class="panel panel-primary"> <!-- panel -->
+				<div class="panel-heading">Parameters</div> <!-- panel -->
+				<div class="panel-body"> <!-- panel -->
+					<select id = "ps">
+						<option value="2KB">2KB</option>
+						<option value="4KB">4KB</option>
+						<option value="8KB">8KB</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label>PAGE SIZE</label><br/><br/>
+					<select id="mm">
+						<option value="4KB">4KB</option>
+						<option value="8KB">8KB</option>
+						<option value="12KB">12KB</option>
+						<option value="16KB">16KB</option>
+						<option value="20KB">20KB</option>
+						<option value="24KB">24KB</option>
+						<option value="28KB">28KB</option>
+						<option value="32KB">32KB</option>
+						<option value="36KB">36KB</option>
+						<option value="40KB">40KB</option>
+						<option value="44KB">44KB</option>
+						<option value="48KB">48KB</option>
+						<option value="52KB">52KB</option>
+						<option value="56KB">56KB</option>
+						<option value="60KB">60KB</option>
+						<option value="64KB">64KB</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label>MAIN MEMORY</label><br/><br/>
+					<select id= "vm">
+						<option value="4KB">4KB</option>
+						<option value="8KB">8KB</option>
+						<option value="12KB">12KB</option>
+						<option value="16KB">16KB</option>
+						<option value="20KB">20KB</option>
+						<option value="24KB">24KB</option>
+						<option value="28KB">28KB</option>
+						<option value="32KB">32KB</option>
+						<option value="36KB">36KB</option>
+						<option value="40KB">40KB</option>
+						<option value="44KB">44KB</option>
+						<option value="48KB">48KB</option>
+						<option value="52KB">52KB</option>
+						<option value="56KB">56KB</option>
+						<option value="60KB">60KB</option>
+						<option value="64KB">64KB</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label>VIRTUAL MEMORY</label><br/><br/>
+					<select >
+						<option value="Item1">Item1</option>
+						<option value="Item2">Item2</option>
+						<option value="Item3">Item3</option>
+						<option value="Item4">Item4</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label>TLB</label><br/><br/>
+				</div> <!-- panel  -->
+			</div> <!-- panel -->
+
+			<div class="panel panel-primary"> <!-- panel  -->
+				<div class="panel-heading">Replacement Policy</div>  <!-- panel -->
+				<div class="panel-body"> <!-- panel body -->
+					<input type="radio" name="optradio" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id= "fifo">FIFO</label><br/><br/>
+					<input type="radio" name="optradio" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id= "lifo">LIFO</label><br/><br/>
+					<input type="radio" name="optradio" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id= "lru">LRU</label><br/><br/>
+					<input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>More..</label><br/><br/>
+				</div> <!-- panel body-->
+			</div>  <!-- panel -->
+
+			<div class="panel panel-primary"> <!-- panel  -->
+				<div class="panel-heading">Page Level</div>  <!-- panel -->
+				<div class="panel-body"> <!-- panel -->
+					<input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>ONE LEVEL</label><br/><br/>
+					<input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>TWO LEVEL</label><br/><br/>
+				</div> <!-- panel body-->
+			</div>  <!-- panel -->
+			<button type="submit" class="btn btn-default btn-block" id="submit" onclick="insertValues()">Submit</button>
+			<button type="button" class="btn btn-default btn-block" id="Restart" onClick="window.location.reload()">Restart</button>
+		</div> <!-- End of first column -->
+
+		<div class="col-sm-8" style="background-color:;"><!-- second column -->
+			<div class="panel panel-default" > <!-- panel  -->
+				<div class="panel-heading"><p class="text-primary" id="mainpanel">Main Panel</p></div>  <!-- panel -->
+				<div class="panel-body"  > <!-- panel body -->
+					<div style="background-color:">
+						<button type="button" class="btn btn-primary btn-md" id="generate">Generate</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<!-- <div class="form-group"> -->
+						<input type="text" class="form-control" id="virtualadress" placeholder="Virtual Address">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<!-- </div> -->
+						<button type="button" class="btn btn-primary btn-sm" id="map">Map</button><br/><br/>
+
+						<form role="form">
+							<div class="radio">
+								<label><input type="radio" name="optradio">Read</label>
+							</div>
+							<div class="radio">
+								<label><input type="radio" name="optradio">Write</label>
+							</div>
+						</form><br/><br/>
+
+						<button type="button" class="btn btn-primary btn-md" id="generate">Generate</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<!-- <div class="form-group"> -->
+						<input type="text" class="form-control" id="pagenum" placeholder="Page Number">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<!-- </div> -->
+						<button type="button" class="btn btn-primary btn-sm" id="map">Map</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+						<div id="pages">
+							<p class="text-warning" >Page Miss <span text-color="red">0</span></p>
+							<p class="text-danger">Page Hint &nbsp;<span text-color="green">0</span></p>
+						</div>   
+					</div>
+		
+                        <hr/>
+
+                        <div>
+                        	<ul class="nav nav-tabs" role="tablist">
+                        		<li class="active"><a href="#">BASIC</a></li>
+                        		<li><a href="index1.html">UNDER THE HOOD</a></li>
+                        	</ul>
+                        </div> 
+
+
+                        <table class="table table-bordered" id="table1">
+                        	<thead>
+                        		<tr>
+                        			<th>Virtual Memory</th>
+                        		</tr>
+                        	</thead>
+                        	<tbody>
+                        		<tr>
+                        			<td></td>
+                        		</tr>
+                        	</tbody>
+                        </table>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+						 <table class="table table-bordered" id="table2">
+                        	<thead>
+                        		<tr>
+                        			<th>Main Memory</th>
+                        			<th>Disk</th>
+                        		</tr>
+                        	</thead>
+                        	<tbody>
+                        		<tr>
+                        			<td></td>
+                        			<td></td>
+                        		</tr>
+                        	</tbody>
+                        </table>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+						<table class="table table-bordered" id="table3">
+                        	<thead>
+                        		<tr>
+                        			<th>VPN</th>
+                        			<th>At PPN</th>
+                        			<th>Valid</th>
+                        		</tr>
+                        	</thead>
+                        	<tbody>
+                        		<tr>
+                        			<td></td>
+                        			<td></td>
+                        			<td></td>
+                        		</tr>
+                        	</tbody>
+                        </table> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <!-- <form role="form"> 
+							<div class="form-group">
+								<label for="comment" class= "text-primary" id="Ex1">Explanation:</label>
+								<textarea class="form-control" rows="5" id="Explanation"></textarea>
+							</div>
+						</form> -->
+				</div> <!-- panel body -->
+			</div>  <!-- panel -->
+		</div> <!-- End of second column -->
+
+			<div class="col-sm-2" style="background-color:;"><!-- third column -->
+				<div class="panel panel-primary"> <!-- panel  -->
+					<div class="panel-heading" id="table4">Table4</div>  <!-- panel -->
+					<div class="panel-body"> <!-- panel body -->
+						<div class="table-responsive">
+							<table class="table" id="tb">
+								<thead>
+		                           <tr>
+										<td>Virtual Memory</td>
+										<td>Main Memory</td>
+										<th>Page Size</th>
+									</tr>
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+					
+							</table>
+						</div>
+					</div> <!-- panel body-->
+				</div>  <!-- panel -->
+
+				<div class="panel panel-primary"> <!-- panel  -->
+					<div class="panel-heading" id="table5">Table5</div>  <!-- panel -->
+					<div class="panel-body"> <!-- panel -->
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Replacement Policy</th>
+										<th>Page Level</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div> <!-- panel body -->
+				</div>  <!-- panel -->
+
+				<form role="form">
+					<div class="form-group" >
+						<label for="comment" class= "text-primary">Recent History:</label>
+						<textarea class="form-control" rows="5" id="comment"></textarea>
+					</div>
+				</form>
+
+			</div> <!-- End of third column -->
+</div><!-- end of first row -->
+</body>
+</html>

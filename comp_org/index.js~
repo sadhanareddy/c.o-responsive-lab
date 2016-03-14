@@ -1,0 +1,24 @@
+function insertValues()
+{
+  var vir_mem = document.getElementById('vm').options[document.getElementById('vm').selectedIndex].text;
+  var main_memory = document.getElementById('mm').options[document.getElementById('mm').selectedIndex].text;
+  var page_size = document.getElementById('ps').options[document.getElementById('ps').selectedIndex].text;
+  document.getElementById("tb").rows[1].style.backgroundColor = "#040081";
+  document.getElementById("tb").rows[1].style.color = "white";
+  document.getElementById("tb").rows[1].style.fontWeight= "900";  
+  document.getElementById("tb").rows[1].cells[0].innerHTML = vir_mem; 
+  document.getElementById("tb").rows[1].cells[1].innerHTML = main_memory; 
+  document.getElementById("tb").rows[1].cells[2].innerHTML = page_size;
+  var vm_arr = [2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32];
+  var mm_arr = [4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64];
+  var 
+   for(i = 0; i < vm_arr.length; i++)
+   {
+      if (page_size == 2KB)
+         {
+           
+         }
+
+   }
+}
+
